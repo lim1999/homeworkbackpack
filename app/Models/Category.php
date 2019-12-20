@@ -48,6 +48,7 @@ class Category extends Model
     */
     public function getCodeAttribute(){
         return '0000'.$this->id;
+    }
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
