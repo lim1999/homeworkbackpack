@@ -31,6 +31,15 @@ class ProductCrudController extends CrudController
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         // $this->crud->setFromDb();
+        $this->crud->addFilter([
+            'name'  => 'name',
+            'type'  => 'select2',
+            'label' => 'Name'
+          ], function () {
+            return \App\Models\Product::pluck('name', 'id')->toArray();
+          }, function ($value) { // if the filter is active
+            $this->crud->addClause('where', 'id', $value);
+          });
         $this->crud->addColumn([
             'name'=>'Code',
             'label'=>'ID'
