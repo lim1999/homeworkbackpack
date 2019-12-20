@@ -34,7 +34,10 @@ class Category extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
+    public function product()
+    {
+        return $this->hasMany(\App\Models\Product::class,'category_id');
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES
