@@ -46,6 +46,9 @@ class CategoryCrudController extends CrudController
             'name'=>'name',
             'label'=>'Name'
         ]);
+       //Storage::disk('uploads')->url($file);
+
+        
     }
 
     protected function setupCreateOperation()

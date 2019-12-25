@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->float('sale_price')->nullable();
             $table->float('sold_price')->nullable();
             $table->float('rent_price')->nullable();
+            $table->softDeletes();	
             $table->timestamps();
         });
     }

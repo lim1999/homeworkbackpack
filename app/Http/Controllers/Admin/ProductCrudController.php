@@ -25,6 +25,7 @@ class ProductCrudController extends CrudController
         $this->crud->setModel('App\Models\Product');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/product');
         $this->crud->setEntityNameStrings('product', 'products');
+        //$this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');
     }
 
     protected function setupListOperation()
@@ -40,6 +41,16 @@ class ProductCrudController extends CrudController
           }, function ($value) { // if the filter is active
             $this->crud->addClause('where', 'id', $value);
           });
+          $this->crud->addFilter([
+            'type' => 'simple',
+            'name' => 'trashed',
+            'label'=> 'Trashed'
+          ],
+          false,
+          function($values) { // if the filter is active
+            $this->crud->addClause('onlyTrashed');
+            //   $this->crud->query = $this->crud->query->onlyTrashed();
+          });
         $this->crud->addColumn([
             'name'=>'Code',
             'label'=>'ID'
@@ -50,7 +61,7 @@ class ProductCrudController extends CrudController
         ]);
         $this->crud->addColumn([
             'label'=>'CategoryName',
-            'name'=>'cateRelation.name'
+            'name'=>'categories.name'
         ]);
         $this->crud->addColumn([
             'name'=>'rent_price',
@@ -68,6 +79,16 @@ class ProductCrudController extends CrudController
             'name'=>'sold_price',
             'label'=>'Sold_Price'
         ]);
+        $this->crud->addColumn([
+            'name' => 'name', // The db column name
+            'label' => "Printshop" // Table column heading
+        ]);
+       $this->crud->addColumn([
+           'name' => 'image', // The db column name
+           'label' => 'Image', // Table column heading
+           'type' => 'image'
+       ]);
+     //    /Storage::disk('uploads')->url($file);
     }
 
     protected function setupCreateOperation()
@@ -80,7 +101,7 @@ class ProductCrudController extends CrudController
             'name'=>'name',
             'label'=>'Name',
             'wrapperAttributes'=>[
-                'class'=>'col-6'
+                'class'=>'form-group col-6'
             ]
         ]);
         $this->crud->addField([
@@ -91,37 +112,49 @@ class ProductCrudController extends CrudController
              'attribute'=>'name',
             'model'=>'App\Models\Category',
             'wrapperAttributes' => [
-                     'class' => 'col-6'
+                     'class' => 'form-group col-6'
                 ],
         ]);
         $this->crud->addField([
             'name'=>'rent_price',
             'label'=>'Rent Price',
             'wrapperAttributes'=>[
-                'class'=>'col-6'
+                'class'=>'form-group col-6'
             ]
         ]);
         $this->crud->addField([
             'name'=>'sale_price',
             'label'=>'Sale Price',
             'wrapperAttributes'=>[
-                'class'=>'col-6'
+                'class'=>'form-group col-6'
             ]
         ]);
         $this->crud->addField([
             'name'=>'list_price',
             'label'=>'List Price',
             'wrapperAttributes'=>[
-                'class'=>'col-6'
+                'class'=>'form-group col-6'
             ]
         ]);
         $this->crud->addField([
             'name'=>'sold_price',
             'label'=>'Sold Price',
             'wrapperAttributes'=>[
-                'class'=>'col-6'
+                'class'=>'form-group col-6'
             ]
         ]);
+        $this->crud->addField([ 
+            'label' => "Image",
+            'name' => "image",
+            'type' => 'image',
+            'upload' => true,
+            'crop' => true, 
+            'prefix' => '',
+            'wrapperAttributes'=>[
+                'class'=>'form-group col-6'
+            ]
+        ]);
+        
     }
 
     protected function setupUpdateOperation()
@@ -173,5 +206,6 @@ class ProductCrudController extends CrudController
                 'class'=>'col-6'
             ]
         ]);
+        
     }
 }

@@ -53,9 +53,18 @@ class Category extends Model
     public function getCodeAttribute(){
         return '0000'.$this->id;
     }
+    // public function getImageAttribute() {
+    //     $fileName = $this->attributes['image'];
+    //     $pathway = Storage::url($this->center_id.'/'.$fileName); 
+    //     $before = '<img src="';
+    //     $after = '" alt="'.$fileName.'" style="width:128px;" />';
+    //     return $before.$pathway.$after;
+    // }
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    
+    
 }
