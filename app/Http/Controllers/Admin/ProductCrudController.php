@@ -80,14 +80,12 @@ class ProductCrudController extends CrudController
             'label'=>'Sold_Price'
         ]);
         $this->crud->addColumn([
-            'name' => 'name', // The db column name
-            'label' => "Printshop" // Table column heading
+            'name'=>'profile',
+            'label'=>'Profile',
+            'type' => 'image',
+            'height' => '30px',
+            'width' => '30px',
         ]);
-       $this->crud->addColumn([
-           'name' => 'image', // The db column name
-           'label' => 'Image', // Table column heading
-           'type' => 'image'
-       ]);
      //    /Storage::disk('uploads')->url($file);
     }
 
@@ -143,16 +141,19 @@ class ProductCrudController extends CrudController
                 'class'=>'form-group col-6'
             ]
         ]);
-        $this->crud->addField([ 
-            'label' => "Image",
-            'name' => "image",
+        $this->crud->addField([ // image
+            'label' => "Profile",
+            'name' => 'profile',
             'type' => 'image',
             'upload' => true,
-            'crop' => true, 
-            'prefix' => '',
-            'wrapperAttributes'=>[
-                'class'=>'form-group col-6'
-            ]
+            'crop' => true, // set to true to allow cropping, false to disable
+            'aspect_ratio' => 1, // ommit or set to 0 to allow any aspect ratio
+            // 'disk' => 'category-profiles',
+            // 'disk' => 's3_bucket', // in case you need to show images from a different disk
+            // 'prefix' => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
+            'wrapperAttributes' => [
+                'class' => 'col-6',
+            ],
         ]);
         
     }
